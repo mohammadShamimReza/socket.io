@@ -9,16 +9,22 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-io.on('connection', (socket) => {
-    let data = new Date();
-    let time = data.getTime();
 
-    setInterval(() => { 
-        socket.emit('time', time); 
-        time += 2000; 
-    }, 200)
-      
-})
+
+let buyNsp = io.of("/buy")
+let sellNsp = io.of("/sell")
+
+
+
+buyNsp.on("connection", (socket) => {
+  buyNsp.emit("myBroadcast", "Hello Buy!");
+});
+
+
+
+sellNsp.on("connection", (socket) => {
+  sellNsp.sockets.emit("myBroadcast", "Hello Sell!");
+});
 
 httpServer.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -9,17 +9,23 @@
 
   </head>
   <body>
-   <h1 id="myTime"></h1>
+   <h1 id="msg"></h1>
   </body>
 
 
 
   <script src="/socket.io/socket.io.js"></script>
     <script>
-      const socket = io();
+      let socket = io("/buy");
 
-      socket.on('time', (time) =>{
-        document.getElementById('myTime').innerHTML=time
+      socket.on("myBroadcast", function(data) { 
+        document.getElementById('msg').innerHTML=data
       })
+
+
+
+
+
+
     </script>
 </html>
